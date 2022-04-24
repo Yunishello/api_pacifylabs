@@ -1,0 +1,63 @@
+.stick {
+  width: 20px;
+  height: 95vh;
+}
+
+.input-div {
+  display: inline-flex;
+  width: 100%;
+}
+
+.input-div-item {
+  border: none;
+  outline: none;
+}
+
+.input-search {
+  background-color: #fff;
+  width: 95%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 10px;
+}
+
+.select-item {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.input-btn {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 5%;
+}
+
+.input-btn-lg {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+}
+
+.shape {
+  display: inline-flex;
+}
+
+.circle {
+  background-color: #eee;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.line {
+  background-color: #eee;
+  width: 100%;
+  height: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .stick {
+    display: none;
+  }
+}
