@@ -345,16 +345,16 @@ window.addEventListener("change", (e) => {
           });
           break;
         case "5":
-          displayItems.innerHTML = `<input type="text" id="user" class="input-div-item input-search text-success" placeholder="Input Your Name Get Your Age..."> 
+          displayItems.innerHTML = `<input type="text" name="user" id="user" class="input-div-item input-search text-success" placeholder="Input Your Name Get Your Age..."> 
                                     <button id="agify" class="input-div-item input-btn bg-warning"></button>`;
           var dis = document.getElementById("agify");
           var loadDisplay = document.getElementById("loadDisplay");
-          var user = document.getElementById("user");
-          console.log(user);
+          let user = document.querySelector("#user");
+          console.log(user.textContent);
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
-          user.addEventListener("change", async function getData(e) {
+          dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
+            console.log(user.value);
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
             loadDisplay.innerHTML = `<div class="circle mb-2"></div>
@@ -457,7 +457,6 @@ window.addEventListener("change", (e) => {
           var dis = document.getElementById("gender");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -558,11 +557,10 @@ window.addEventListener("change", (e) => {
         case "7":
           displayItems.innerHTML = `<input type="text" class="input-div-item input-search text-success" placeholder="Input Your Name Get Your Gender..."> 
                                     <button id="nation" class="input-div-item input-btn bg-warning"></button>`;
-          var dis = document.getElementById("nation");
+          var nation = document.getElementById("nation");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
-          dis.addEventListener("click", async function getData(e) {
+          nation.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
@@ -576,7 +574,7 @@ window.addEventListener("change", (e) => {
                                                 <div class="line">
                                                 </div>`;
 
-            await fetch("https://api.nationalize.io?name=" + gender + "")
+            await fetch("https://api.nationalize.io?name=" + nation + "")
               .then((res) => res.json())
               .then((data) => {
                 singleData = "";
@@ -661,12 +659,11 @@ window.addEventListener("change", (e) => {
           break;
         case "8":
           displayItems.innerHTML = `<button type="text" id="usa" class="input-div-item input-btn-lg bg-warning text-success">
-                                          Search APIs!
+                                          Get USA Population
                                     </button>`;
           var dis = document.getElementById("usa");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -693,16 +690,13 @@ window.addEventListener("change", (e) => {
                   let e =
                     `<tr>
                                                 <td>` +
-                    da["API"] +
+                    da["Nation"] +
                     `</td>
                                                 <td>` +
-                    da["Category"] +
+                    da["Year"] +
                     `</td>
                                                 <td>` +
-                    da["Description"] +
-                    `</td>
-                                                <td>` +
-                    da["Link"] +
+                    da["Population"] +
                     `</td>
                                             </tr>`;
                   singleData += e;
@@ -713,10 +707,9 @@ window.addEventListener("change", (e) => {
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
+                                                                    <th scope="col">Nation</th>
+                                                                    <th scope="col">Year</th>
+                                                                    <th scope="col">Population</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -769,12 +762,11 @@ window.addEventListener("change", (e) => {
           break;
         case "9":
           displayItems.innerHTML = `<button type="text" id="dog" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+                                                    Display Dog Pictures
                                                 </button>`;
           var dis = document.getElementById("dog");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -789,71 +781,15 @@ window.addEventListener("change", (e) => {
                                                 <div class="line">
                                                 </div>`;
 
-            await fetch("dog.ceo/api/breeds/images/random")
+            await fetch("https://dog.ceo/api/breeds/image/random")
               .then((res) => res.json())
               .then((data) => {
-                singleData = "";
-                let datas = data.entries;
-                datas.forEach((da) => {
-                  let e =
-                    `<tr>
-                                                <td>` +
-                    da["API"] +
-                    `</td>
-                                                <td>` +
-                    da["Category"] +
-                    `</td>
-                                                <td>` +
-                    da["Description"] +
-                    `</td>
-                                                <td>` +
-                    da["Link"] +
-                    `</td>
-                                            </tr>`;
-                  singleData += e;
-                  let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
-                                                        <br/>
-                                                        <div class="table-responsive">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                ` +
-                    singleData +
-                    `
-                                                            </tbody>
-                                                        </table>
-                                                        </div>
-                                                        <nav aria-label="...">
-                                                            <ul class="pagination">
-                                                                <li class="page-item disabled">
-                                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                <li class="page-item active" aria-current="page">
-                                                                    <a class="page-link" href="#">2</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">Next</a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                        
+                let img = data.message;
 
-                                                `;
-                  loadDisplay.innerHTML = dataSegment;
-                });
-                // for(let x in datas) {
-
-                // }
+                loadDisplay.innerHTML =
+                  '<img src="' +
+                  img +
+                  '" alt="Dog Images" style="width: 100%; height: 100%">';
               })
               .catch((error) => {
                 document.querySelector("#loadHolder").className =
@@ -873,14 +809,13 @@ window.addEventListener("change", (e) => {
           });
           break;
         case "10":
-          displayItems.innerHTML = `<button type="text" id="searchBTN" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+          displayItems.innerHTML = `<button type="text" id="getIP" class="input-div-item input-btn-lg bg-warning text-success">
+                                                    Get Your IP Address
                                                 </button>`;
-          var dis = document.getElementById("searchBTN");
+          var getIP = document.getElementById("getIP");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.ipify.org?format=json"; //https://api.publicapis.org/entries
-          dis.addEventListener("click", async function getData(e) {
+          getIP.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
@@ -897,68 +832,10 @@ window.addEventListener("change", (e) => {
             await fetch("https://api.ipify.org?format=json")
               .then((res) => res.json())
               .then((data) => {
-                singleData = "";
-                let datas = data.entries;
-                datas.forEach((da) => {
-                  let e =
-                    `<tr>
-                                                <td>` +
-                    da["API"] +
-                    `</td>
-                                                <td>` +
-                    da["Category"] +
-                    `</td>
-                                                <td>` +
-                    da["Description"] +
-                    `</td>
-                                                <td>` +
-                    da["Link"] +
-                    `</td>
-                                            </tr>`;
-                  singleData += e;
-                  let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
-                                                        <br/>
-                                                        <div class="table-responsive">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                ` +
-                    singleData +
-                    `
-                                                            </tbody>
-                                                        </table>
-                                                        </div>
-                                                        <nav aria-label="...">
-                                                            <ul class="pagination">
-                                                                <li class="page-item disabled">
-                                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                <li class="page-item active" aria-current="page">
-                                                                    <a class="page-link" href="#">2</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">Next</a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                        
-
-                                                `;
-                  loadDisplay.innerHTML = dataSegment;
-                });
-                // for(let x in datas) {
-
-                // }
+                loadDisplay.innerHTML =
+                  `<div class="text-success">Your IP address is <span class="text-warning">` +
+                  data.ip +
+                  `</span></div>`;
               })
               .catch((error) => {
                 document.querySelector("#loadHolder").className =
@@ -979,12 +856,11 @@ window.addEventListener("change", (e) => {
           break;
         case "11":
           displayItems.innerHTML = `<button type="text" id="ipinfo" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+                                                    Get Infomation About An IP Address
                                                 </button>`;
           var dis = document.getElementById("ipinfo");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -999,71 +875,45 @@ window.addEventListener("change", (e) => {
                                                 <div class="line">
                                                 </div>`;
 
-            await fetch("https://ipinfo.io/161.185.160.93/geo")
+            await fetch("https://ipinfo.io/105.112.154.200/geo")
               .then((res) => res.json())
-              .then((data) => {
-                singleData = "";
-                let datas = data.entries;
-                datas.forEach((da) => {
-                  let e =
-                    `<tr>
+              .then((da) => {
+                let e =
+                  `<tr>
                                                 <td>` +
-                    da["API"] +
-                    `</td>
+                  da["ip"] +
+                  `</td>
                                                 <td>` +
-                    da["Category"] +
-                    `</td>
+                  da["city"] +
+                  `</td>
                                                 <td>` +
-                    da["Description"] +
-                    `</td>
+                  da["country"] +
+                  `</td>
                                                 <td>` +
-                    da["Link"] +
-                    `</td>
+                  da["loc"] +
+                  `</td>
                                             </tr>`;
-                  singleData += e;
-                  let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
-                                                        <br/>
+                let dataSegment =
+                  `
                                                         <div class="table-responsive">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
+                                                                    <th scope="col">IP Address</th>
+                                                                    <th scope="col">City</th>
+                                                                    <th scope="col">Country</th>
+                                                                    <th scope="col">Location Chart</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 ` +
-                    singleData +
-                    `
+                  e +
+                  `
                                                             </tbody>
                                                         </table>
                                                         </div>
-                                                        <nav aria-label="...">
-                                                            <ul class="pagination">
-                                                                <li class="page-item disabled">
-                                                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                <li class="page-item active" aria-current="page">
-                                                                    <a class="page-link" href="#">2</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#">Next</a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                        
-
                                                 `;
-                  loadDisplay.innerHTML = dataSegment;
-                });
-                // for(let x in datas) {
-
-                // }
+                loadDisplay.innerHTML = dataSegment;
               })
               .catch((error) => {
                 document.querySelector("#loadHolder").className =
@@ -1084,13 +934,13 @@ window.addEventListener("change", (e) => {
           break;
         case "12":
           displayItems.innerHTML = `<button type="text" id="jokes" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+                                                    Let Get Some Jokes (:
                                                 </button>`;
-          var dis = document.getElementById("jokes");
+          var jokes = document.getElementById("jokes");
           var loadDisplay = document.getElementById("loadDisplay");
 
           //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
-          dis.addEventListener("click", async function getData(e) {
+          jokes.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
@@ -1104,10 +954,17 @@ window.addEventListener("change", (e) => {
                                                 <div class="line">
                                                 </div>`;
 
-            await fetch("https://official-joke-api.appspot.com/random_joke")
+            let option = {
+              method: "GET",
+              mode: "no-cors",
+            };
+            await fetch(
+              "https://official-joke-api.appspot.com/random_joke",
+              option
+            )
               .then((res) => res.json())
               .then((data) => {
-                singleData = "";
+                let singleData = "";
                 let datas = data.entries;
                 datas.forEach((da) => {
                   let e =
@@ -1188,14 +1045,14 @@ window.addEventListener("change", (e) => {
           });
           break;
         case "13":
-          displayItems.innerHTML = `<button type="text" id="random" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+          displayItems.innerHTML = `<button type="text" id="users" class="input-div-item input-btn-lg bg-warning text-success">
+                                                    Get Random Users
                                                 </button>`;
-          var dis = document.getElementById("random");
+          var users = document.getElementById("users");
           var loadDisplay = document.getElementById("loadDisplay");
 
           //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
-          dis.addEventListener("click", async function getData(e) {
+          users.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
@@ -1211,28 +1068,29 @@ window.addEventListener("change", (e) => {
 
             await fetch("https://randomuser.me/api/")
               .then((res) => res.json())
-              .then((data) => {
-                singleData = "";
-                let datas = data.entries;
-                datas.forEach((da) => {
-                  let e =
-                    `<tr>
+              .then((da) => {
+                let singleData = "";
+                console.log(da);
+                // let datas = data;
+                // datas.forEach((da) => {
+                let e =
+                  `<tr>
                                                 <td>` +
-                    da["API"] +
-                    `</td>
+                  da["info"] +
+                  `</td>
                                                 <td>` +
-                    da["Category"] +
-                    `</td>
+                  da["Category"] +
+                  `</td>
                                                 <td>` +
-                    da["Description"] +
-                    `</td>
+                  da["Description"] +
+                  `</td>
                                                 <td>` +
-                    da["Link"] +
-                    `</td>
+                  da["Link"] +
+                  `</td>
                                             </tr>`;
-                  singleData += e;
-                  let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
+                singleData += e;
+                let dataSegment =
+                  `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
                                                         <br/>
                                                         <div class="table-responsive">
                                                         <table class="table table-bordered">
@@ -1246,8 +1104,8 @@ window.addEventListener("change", (e) => {
                                                             </thead>
                                                             <tbody>
                                                                 ` +
-                    singleData +
-                    `
+                  singleData +
+                  `
                                                             </tbody>
                                                         </table>
                                                         </div>
@@ -1269,8 +1127,8 @@ window.addEventListener("change", (e) => {
                                                         
 
                                                 `;
-                  loadDisplay.innerHTML = dataSegment;
-                });
+                loadDisplay.innerHTML = dataSegment;
+                // });
                 // for(let x in datas) {
 
                 // }
@@ -1295,12 +1153,11 @@ window.addEventListener("change", (e) => {
 
         case "14":
           displayItems.innerHTML = `<button type="text" id="list" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+                                                    Get University List
                                                 </button>`;
           var dis = document.getElementById("list");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -1316,11 +1173,12 @@ window.addEventListener("change", (e) => {
                                                 </div>`;
 
             await fetch(
-              "https://universities.hipolabs.com/search?country=" + country + ""
+              "https://universities.hipolabs.com/search?country=United+State"
             )
               .then((res) => res.json())
               .then((data) => {
-                singleData = "";
+                console.log(data);
+                let singleData = "";
                 let datas = data.entries;
                 datas.forEach((da) => {
                   let e =
