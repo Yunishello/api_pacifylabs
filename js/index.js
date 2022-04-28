@@ -14,7 +14,6 @@ window.addEventListener("change", (e) => {
           var dis = document.getElementById("searchBTN");
           var loadDisplay = document.getElementById("loadDisplay");
 
-          let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
           dis.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
@@ -52,10 +51,10 @@ window.addEventListener("change", (e) => {
                                             </tr>`;
                   singleData += e;
                   let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
+                    `<input class="form-control" id="dtBasicExample" type="text" placeholder="Search.." />
                                                         <br/>
                                                         <div class="table-responsive">
-                                                        <table class="table table-bordered">
+                                                        <table class="table table-bordered" id="myTable">
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col">Name</th>
@@ -162,7 +161,7 @@ window.addEventListener("change", (e) => {
           break;
         case "3":
           displayItems.innerHTML = `<button type="text" id="coin" class="input-div-item input-btn-lg bg-warning text-success">
-            Search APIs!
+            Know BPI Value!
         </button>`;
           var dis = document.getElementById("coin");
           var loadDisplay = document.getElementById("loadDisplay");
@@ -194,7 +193,7 @@ window.addEventListener("change", (e) => {
                   `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
                 <br/>
                 <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="#myTable">
                     <thead>
                         <tr>
                             <th scope="col">Code</th>
@@ -297,7 +296,7 @@ window.addEventListener("change", (e) => {
           break;
         case "4":
           displayItems.innerHTML = `<button type="text" id="bored" class="input-div-item input-btn-lg bg-warning text-success">
-                                                    Search APIs!
+                                                    Don't Get Bored :-)
                                                 </button>`;
           var dis = document.getElementById("bored");
           var loadDisplay = document.getElementById("loadDisplay");
@@ -349,12 +348,12 @@ window.addEventListener("change", (e) => {
                                     <button id="agify" class="input-div-item input-btn bg-warning"></button>`;
           var dis = document.getElementById("agify");
           var loadDisplay = document.getElementById("loadDisplay");
-          let user = document.querySelector("#user");
-          console.log(user.textContent);
+          // let user = document.querySelector("#user");
 
-          dis.addEventListener("click", async function getData(e) {
-            e.preventDefault();
-            console.log(user.value);
+          dis.addEventListener("click", async () => {
+            // e.preventDefault();
+            let user = document.querySelector("#user").value;
+            console.log(user);
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
             loadDisplay.innerHTML = `<div class="circle mb-2"></div>
@@ -453,7 +452,7 @@ window.addEventListener("change", (e) => {
           break;
         case "6":
           displayItems.innerHTML = `<input type="text" class="input-div-item input-search text-success" placeholder="Input Your Name Get Your Gender..."> 
-                                    <button id="gender" class="input-div-item input-btn bg-warning"></button>`;
+                                    <button type="submit" id="gender" class="input-div-item input-btn bg-warning"></button>`;
           var dis = document.getElementById("gender");
           var loadDisplay = document.getElementById("loadDisplay");
 
@@ -963,9 +962,9 @@ window.addEventListener("change", (e) => {
               option
             )
               .then((res) => res.json())
-              .then((data) => {
+              .then((da) => {
                 let singleData = "";
-                let datas = data.entries;
+                let datas = da;
                 datas.forEach((da) => {
                   let e =
                     `<tr>
@@ -1173,28 +1172,29 @@ window.addEventListener("change", (e) => {
                                                 </div>`;
 
             await fetch(
-              "https://universities.hipolabs.com/search?country=United+State"
+              "http://universities.hipolabs.com/search?country=United+States"
             )
               .then((res) => res.json())
               .then((data) => {
                 console.log(data);
                 let singleData = "";
-                let datas = data.entries;
+                let datas = data;
+                let count = 0;
                 datas.forEach((da) => {
+                  count += 1;
                   let e =
                     `<tr>
-                                                <td>` +
-                    da["API"] +
+                    <td>` +
+                    count +
                     `</td>
                                                 <td>` +
-                    da["Category"] +
+                    da["name"] +
                     `</td>
-                                                <td>` +
-                    da["Description"] +
-                    `</td>
-                                                <td>` +
-                    da["Link"] +
-                    `</td>
+                                                <td><a href="` +
+                    da["web_pages"][0] +
+                    `">` +
+                    da["name"] +
+                    `<</td>
                                             </tr>`;
                   singleData += e;
                   let dataSegment =
@@ -1204,10 +1204,9 @@ window.addEventListener("change", (e) => {
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
+                                                                    <th scope="col">S/N</th>
+                                                                    <th scope="col">University Name</th>
+                                                                    <th scope="col">School Link</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1260,12 +1259,13 @@ window.addEventListener("change", (e) => {
           break;
 
         case "15":
-          displayItems.innerHTML = `<input type="file" id="zip" class="input-div-item input-btn-lg bg-warning text-success" />`;
-          var dis = document.getElementById("zip");
+          displayItems.innerHTML = `<input type="text" class="input-div-item input-search text-success" placeholder="Input Your Name Get Your Gender..."> 
+                                    <button id="zip" class="input-div-item input-btn bg-warning"></button>`;
+          var zip = document.getElementById("zip");
           var loadDisplay = document.getElementById("loadDisplay");
 
           //   let url = "https://api.publicapis.org/entries"; //https://api.publicapis.org/entries
-          dis.addEventListener("click", async function getData(e) {
+          zip.addEventListener("click", async function getData(e) {
             e.preventDefault();
             document.querySelector("#loadHolder").className =
               "card-header bg-success";
@@ -1281,43 +1281,47 @@ window.addEventListener("change", (e) => {
 
             await fetch("https://api.zippopotam.us/us/33162")
               .then((res) => res.json())
-              .then((data) => {
-                singleData = "";
-                let datas = data.entries;
-                datas.forEach((da) => {
-                  let e =
-                    `<tr>
+              .then((da) => {
+                let e =
+                  `<tr>
                                                 <td>` +
-                    da["API"] +
-                    `</td>
+                  da["post code"] +
+                  `</td>
                                                 <td>` +
-                    da["Category"] +
-                    `</td>
+                  da["country"] +
+                  `</td>
                                                 <td>` +
-                    da["Description"] +
-                    `</td>
-                                                <td>` +
-                    da["Link"] +
-                    `</td>
+                  da["places"][0]["state"] +
+                  `</td>
+                  <td>` +
+                  da["places"][0]["place name"] +
+                  `</td>
+                  <td>` +
+                  da["places"][0]["latitude"] +
+                  `</td>
+                  <td>` +
+                  da["places"][0]["longitude"] +
+                  `</td>
                                             </tr>`;
-                  singleData += e;
-                  let dataSegment =
-                    `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
+                let dataSegment =
+                  `<input class="form-control" id="myInput" type="text" placeholder="Search.." />
                                                         <br/>
                                                         <div class="table-responsive">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col">Name</th>
-                                                                    <th scope="col">Category</th>
-                                                                    <th scope="col">Description</th>
-                                                                    <th scope="col">Link</th>
+                                                                    <th scope="col">Post Code</th>
+                                                                    <th scope="col">Country</th>
+                                                                    <th scope="col">State</th>
+                                                                    <th scope="col">LGA</th>
+                                                                    <th scope="col">Latitude</th>
+                                                                    <th scope="col">Longitude</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 ` +
-                    singleData +
-                    `
+                  e +
+                  `
                                                             </tbody>
                                                         </table>
                                                         </div>
@@ -1339,11 +1343,7 @@ window.addEventListener("change", (e) => {
                                                         
 
                                                 `;
-                  loadDisplay.innerHTML = dataSegment;
-                });
-                // for(let x in datas) {
-
-                // }
+                loadDisplay.innerHTML = dataSegment;
               })
               .catch((error) => {
                 document.querySelector("#loadHolder").className =
